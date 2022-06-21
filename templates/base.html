@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}" />
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+    <div class="main">
+        <header>
+            <div class="nav-container">
+                <h3>Flaz<span>k</span></h3>
+                <nav class="nav justify-content-center">
+                <a class="nav-link active" href="/dashboard"><span>Dashboard</span>
+                <span></span>
+            </a>
+        <a class="nav-link" href="/logout"><span>{% block status %} {% endblock %}</span>
+            <span></span>
+        </a>
+        <i class="fa fa-bars" id="nav-btn" aria-hidden="true"></i>
+                </nav>
+            </div>
+        </header>
+        <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+        {% block content %}
+
+        {%endblock %}
+</div>
+
+
+</body>
+</html>

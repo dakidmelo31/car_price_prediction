@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block status%}Logout {% endblock %}
+{% block title %} Dashboard {% endblock %}
+
+{% block content %} 
+<style>
+    h4{
+        font-weight: 300;
+        font-size: 20px ;
+    color: #aaa !important;
+}
+
+</style>
+<div class="recent-information">
+
+    <div class="testing-model">
+        <div class="input-board1">
+            <h3>Predict Price</h3>
+            <h4>Using Linear Regression Model</h4>
+
+            <form action="/predict" method="GET" id="form-board1" class="form-board board1">
+                <input type="hidden" name="type" value="mpg">
+                <input type="text" name="mpg" id="mpg" placeholder="Enter mpg to get price" />
+                <input type="button" id="first_btn" value="Predict Price">
+            </form>
+        </div>
+        <div class="result-board1">
+
+            <h3 style="padding-top: 40px; text-align: center;">Predicting... ⚙⚙</h3>
+
+        </div>
+    </div>
+
+<!-- Second Model -->
+<div class="testing-model">
+    <div class="input-board2">
+        <h3>Predict Price</h3>
+        <h4>Using Polynomial Regression & Pipeline Model</h4>
+
+        <form action="" method="get" id="form-board2" class="form-board board2">
+                <input type="hidden" name="type" value="four">
+                <input type="text" name="curb_height" id="curb_height" placeholder="Curb height" />
+            <input type="text" name="highway_mpg" id="highway_mpg" placeholder="Highway Mpg" />
+            <input type="text" name="horsepower" id="horsepower" placeholder="Horsepower" />
+            <input type="text" name="engine_size" id="engine_size" placeholder="Engine Size" />
+            <input type="button" id="second_btn" value="Pridict Price">
+        </form>
+    </div>
+    <div class="result-board2">
+        <h3>We Predict That...🤔</h3>
+        <p>
+        You will spend <span>10,000</span>
+            to get a house with that age and location.
+        </p>
+        <button type="button" class="open-input-board2 again2">Predict Again!</button>
+    </div>
+</div>
+
+<!-- /SECOND MODEL -->
+
+
+</div>
+
+
+</div>
+
+<script src="js/jquery.js"></script>
+<script>
+$(document).ready(function($){
+$("#first_btn").click(function(e){
+    e.preventDefault()
+    $(this).parent().slideUp(500, function(){
+        $("div.input-board1").slideUp("slow")
+    });
+
+    setTimeout(function(){
+        var formValues = $("form#form-board1").serialize()
+        $("div.result-board1").load("/predict", formValues, function(e){
+        })
+    }, 800)
+
+});
+
+$("#second_btn").click(function(e){
+    e.preventDefault()
+    $(this).parent().slideUp(500, function(){
+        $("div.input-board2").slideUp("slow")
+    });
+
+    setTimeout(function(){
+        var formValues = $("form#form-board2").serialize()
+        $("div.result-board2").load("/predict2", formValues, function(e){
+        })
+    }, 800)
+});
+
+
+$("#third_btn").click(function(e){
+    $(this).parent().slideUp(500, function(){
+        $("div.input-board3").slideUp("slow")
+    });
+});
+
+
+
+$("button.open-input-board1").click(function(e){
+    $(this).parent().hide("slow")
+
+    $("div.input-board1").slideDown("slow", function(){
+        $(this).parent().show(500);
+        $(this).parent().children("input").val("");
+    });
+})
+
+$("button.open-input-board2").click(function(e){
+    $("div.input-board2").slideDown("slow", function(){
+        $("form#form-board1").parent().show(500);
+        $("form#form-board1").parent().children("input").val("");
+    });
+})
+
+$("button.open-input-board3").click(function(e){
+    $("div.input-board3").slideDown("slow", function(){
+        $(this).parent().show(500);
+        $(this).parent().children("input").val("");
+    });
+})
+var opacityToggle = false;
+$("i#nav-btn").click(function(e){
+    if(opacityToggle){
+        opacityToggle = !opacityToggle;
+        $("nav a").css("opacity", "1")
+    }
+    else{
+        opacityToggle = !opacityToggle;
+        $("nav a").css("opacity", "0")
+    }
+})
+
+})
+</script>
+
+
+{% endblock %}

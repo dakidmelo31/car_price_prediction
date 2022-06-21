@@ -1,0 +1,72 @@
+
+<h3>We Predict That...🤔</h3>
+<p>We predict that the price is: {{ price }}</p>
+
+<button type="button" class="open-input-board1" style="
+border: none;
+width: 80%;
+padding: 15px 20px;
+background-color: orangered;
+border-radius: 4px;
+color: #fff;
+cursor: pointer;
+transition: all .3s ease-in-out;
+">Predict Again!</button>
+
+<script>
+    $(document).ready(function($){
+        $("#first_btn").click(function(e){
+    e.preventDefault()
+    $(this).parent().slideUp(500, function(){
+        $("div.input-board1").slideUp("slow")
+    });
+
+    setTimeout(function(){
+        var formValues = $("form#form-board1").serialize()
+        $("div.result-board1").load("/predict", formValues, function(e){
+            alert(e)
+        })
+    }, 1000)
+
+});
+        
+$("#second_btn").click(function(e){
+    $(this).parent().slideUp(500, function(){
+        $("div.input-board2").slideUp("slow")
+    });
+});
+$("#third_btn").click(function(e){
+    $(this).parent().slideUp(500, function(){
+        $("div.input-board3").slideUp("slow")
+    });
+});
+
+
+
+$("button.open-input-board1").click(function(e){
+    $("form#form-board1").parent().append(' <input type="hidden" name="type" value="mpg"> <input type="text" name="mpg" id="mpg" placeholder="Enter mpg to get price" /> <input type="button" id="first_btn" value="Predict Price">')
+    $("form#form-board1").parent().slideDown("slow")
+
+    $("div.input-board1").slideDown("slow", function(){
+        $(this).parent().show(500);
+        $(this).parent().children("input").val("");
+    });
+})
+
+$("button.open-input-board2").click(function(e){
+    $("div.input-board2").slideDown("slow", function(){
+        $("form#form-board1").parent().show(500);
+        $("form#form-board1").parent().children("input").val("");
+    });
+})
+
+$("button.open-input-board3").click(function(e){
+    $("div.input-board3").slideDown("slow", function(){
+        $(this).parent().show(500);
+        $(this).parent().children("input").val("");
+    });
+})
+
+
+    })
+ </script>
